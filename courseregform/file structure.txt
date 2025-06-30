@@ -1,0 +1,18 @@
+courseregform/
+├── appcrf.py
+├── requirements.txt
+├── data.py
+├── student.py
+├── admin.py
+└── templates/
+    ├── index.html
+    ├── student_login.html
+    ├── student_course.html
+    ├── student_feedback.html
+    ├── admin_login.html
+    ├── admin_panel.html
+    ├── faculty_register.html      ← now only used by Admin
+    ├── faculty_dashboard.html     ← now only used by Admin
+
+i am working in a project that is called the course feedback form for the students.that works like a very advanced google form,it must have 2 login pages, one for admin and other for students.The student login age must need the students o enter their name,roll number,semester.in that student page it must display all the live events that are hosted by the admin , only after the admin clicks the host button the feedback form should be visible to students. if there are no live event it must display no events.The student's rollnumber must be verified by a list of numbers that are previously uploaded by the admin.A student must not attempt the feedback form twice. then after them clicking the next button,they must see a grid like structure like a table that has upto 15 feedback questions as rows and 13 coloumns with course name, each course will have atleast 4 staffs name that must be available in the drop down menu. then for each value that the student try to enter inside the table/grid it must also be a drop down menu with the ratings from 1 to 4 i.e poor to very good.then when the student submits the form he should be directed back to the home screen saying thankyou for your feedback while showing the loading symbol for 3 seconds. 
+next the when the admin clicks the admin login username:admin pass: admin123. the admin must be able to see the current feedback form's reply and if admin clicks the the see results button, 

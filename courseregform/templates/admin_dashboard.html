@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .btn {
+          transition: all 0.3s ease;
+      }
+      .btn:hover {
+          transform: scale(1.05);
+      }
+    </style>
+</head>
+<body class="container mt-4">
+    <h2>Feedback Dashboard</h2>
+    <div class="mb-4">
+        <p>Overall Attendance: {{ attendance_percentage }}%</p>
+        <h4>Students who have not submitted feedback:</h4>
+        <ul class="list-group">
+            {% for roll in not_attempted %}
+                <li class="list-group-item">{{ roll }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mb-4">
+        <h4>View Feedback Results</h4>
+        <form id="resultForm">
+            <div class="mb-3">
+                <label for="courseSelect" class="form-label">Select Course and Staff</label>
+                <select id="courseSelect" class="form-select">
+                    <option value="">-- Select Option --</option>
+                    {% for course, staffs in summary.items() %}
+                        {% for staff, data in staffs.items() %}
+                            <option value="{{ course }}::{{ staff }}">{{ course }} - {{ staff }}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+        <canvas id="feedbackChart" width="800" height="400"></canvas>
+    </div>
+    <a href="/admin/download_pdf" class="btn btn-primary">Download PDF Report</a>
+
+    <!-- Inject the JSON via our custom escapejs filter -->
+    <script>
+      const summaryStr = '{{ summary|tojson|escapejs }}';
+      const summary = JSON.parse('"' + summaryStr + '"');
+
+      const ctx = document.getElementById('feedbackChart').getContext('2d');
+      let chart;
+
+      document.getElementById('courseSelect').addEventListener('change', function() {
+          const selected = this.value;
+          if (selected) {
+              const parts = selected.split("::");
+              const course = parts[0];
+              const staff = parts[1];
+              const data = summary[course][staff]['avg_ratings'];
+              const labels = [];
+              for (let i = 1; i <= 15; i++) {
+                  labels.push("Q" + i);
+              }
+              if (chart) {
+                  chart.destroy();
+              }
+              chart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: labels,
+                      datasets: [{
+                          label: 'Average Ratings',
+                          data: data,
+                          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                          borderColor: 'rgba(75, 192, 192, 1)',
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          y: {
+                              beginAtZero: true,
+                              max: 4
+                          }
+                      }
+                  }
+              });
+          }
+      });
+    </script>
+</body>
+</html>

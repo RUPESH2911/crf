@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Vibrant animated background */
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+            animation: gradientBG 5s ease infinite;
+            background-size: 400% 400%;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h2 {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: scale(1.1);
+            background-color: #ff3b2e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Login</h2>
+        <form method="post" action="/student/login">
+            <div class="mb-3">
+                <label for="roll_number" class="form-label">Roll Number</label>
+                <input type="text" name="roll_number" id="roll_number" class="form-control" placeholder="718123XXXXX" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password (Default: Srec@123)</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+</body>
+</html>

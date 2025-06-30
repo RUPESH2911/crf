@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Selection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h2>Select Your Course</h2>
+    <form method="post" action="/student/select_course">
+        <input type="hidden" name="roll_number" value="{{ roll }}">
+        <div class="mb-3">
+            <label class="form-label">Course</label>
+            <select name="course_code" class="form-select" required>
+                <option value="">-- Select Course --</option>
+                {% for course in available_courses %}
+                    <option value="{{ course.course_code }}">{{ course.course_code }} - {{ course.course_title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+</body>
+</html>
